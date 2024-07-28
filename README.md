@@ -2,15 +2,29 @@
 
 This is an application for sharing YouTube movies. Users can share their favorite movies and discover new ones. Includes register or login, refresh token, share a movie, view list movies, real-time notification when someone share a movie and more.
 
-## Install
+You can see [demo](http://64.227.124.129:3000/)
 
-This project uses [node](http://nodejs.org) and [npm](https://npmjs.com). Go check them out if you don't have them locally installed.
+## System Diagram
+
+## Installation
+
+This project uses some software, please go check them out if you don't have them locally installed.
+
+- [node](http://nodejs.org). version 18.20.4 or later,
+- [npm](https://npmjs.com)
+- [postgres](https://www.postgresql.org/),
+- [redis](https://redis.io/)
+
+## TECH STACK
+
+- Backend: NestJS/Typescript, PostgreSQL, Redis, WebSockets, JWT, Passport.js
+- Frontend: ReactJs, Tailwind & shadcnUI
 
 # Usage
 
-### 0. Environmental variables
+### 1. Environmental variables
 
-0.1. Create **`.env`** file in **`backend`** Copy content from `.evn.example` and fill with following:
+1.1. Create **`.env`** file in **`backend`** Copy content from `.evn.example` and fill with following:
 
 ```code
 # APP
@@ -51,7 +65,7 @@ REDIS_DB=0
 
 ```
 
-0.2. Create **`.env`** file in **`frontend`** Copy content from `.evn.example` and fill with following:
+1.2. Create **`.env`** file in **`frontend`** Copy content from `.evn.example` and fill with following:
 
 ```code
 VITE_REACT_APP_API_ENDPOINT=http://127.0.0.1:4000/api/v1
@@ -111,7 +125,7 @@ npm run start:dev
 ```
 
 - Default server will be started at http://127.0.0.1:4000
-- Swagger link http://127.0.0.1:4000/docs/#/
+- Document link http://127.0.0.1:4000/docs/#/
 
 ### 3. Frontend setup
 
@@ -131,18 +145,25 @@ npm run dev
 
 - Default frontend will be started at http://127.0.0.1:3000
 
-## TECH STACK
+## Run Testing
 
-- Backend:
-  - Nest.js
-  - PostgreSQL
-  - Redis
-  - WebSockets
-  - JWT
-  - Passport.js
-- Frontend
-  - ReactJs
-  - Tailwind & shadcnUI
+### Run unit test in backend
+
+#### run all test case
+
+```bash
+npm run test:watch
+```
+
+#### run coverage test
+
+```bash
+npm run test:cov
+```
+
+## Contributing
+
+Feel free to dive in! [Open an issue](https://github.com/HoangThaiHuy/remitano-testing-project/issues/new) or submit PRs.
 
 ## License
 
