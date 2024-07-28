@@ -143,6 +143,9 @@ npm run dev
 - Frontend
   - ReactJs
   - Tailwind & shadcnUI
+## Contributing
+
+Feel free to dive in! [Open an issue](https://github.com/HoangThaiHuy/remitano-testing-project/issues/new) or submit PRs.
 
 ## License
 
