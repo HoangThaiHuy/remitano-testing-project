@@ -1,0 +1,53 @@
+name: rtn-movie-dev
+
+env:
+  ##GITHUB_REPOSITORY: ${{ github.repository }}
+  DEPLOY_PATH: /home/ubuntu/app-dev/${{ github.repository }}
+  ENV_API_DEV: ${{ vars.ENV_API_DEV }}
+  ENV_APP_DEV: ${{ vars.ENV_APP_DEV }}
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+jobs:
+  build-api:
+    runs-on: rtn-movie-dev
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          ref: "develop"
+          node-version: "18.20.4"
+      - name: rtn api
+        run: echo $DEPLOY_PATH
+      - run: node --version
+      - run: cd backend
+      - run: npm --version
+      - run: echo "$ENV_API_DEV" > .env
+      - run: npm install
+      - run: mkdir -p $DEPLOY_PATH
+      - run: rsync -hraz --no-perms --delete . --exclude public $DEPLOY_PATH
+      - run: chown -R ubuntu $DEPLOY_PATH
+      - run: sudo runuser -l ubuntu -c "cd $DEPLOY_PATH; echo $USER; pm2 start npm --name 'rtn_api' -- run 'start:dev'"
+  build-app:
+    runs-on: rtn-movie-dev
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          ref: "develop"
+          node-version: "18.20.4"
+      # Runs a single command using the runners shell
+      - name: rtn app
+        run: echo $DEPLOY_PATH
+      - run: cd frontend
+      - run: node --version
+      - run: npm --version
+      - run: echo "$ENV_APP_DEV" > .env
+      - run: npm install
+      - run: mkdir -p $DEPLOY_PATH
+      - run: chown -R ubuntu $DEPLOY_PATH
+      - run: sudo runuser -l ubuntu -c "cd $DEPLOY_PATH; echo $USER; pm2 start npm --name 'rtn_app' -- run 'dev'"
