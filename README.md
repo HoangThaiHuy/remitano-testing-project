@@ -51,7 +51,14 @@ REDIS_DB=0
 
 ```
 
-## With Docker
+0.2. Create **`.env`** file in **`frontend`** Copy content from `.evn.example` and fill with following:
+
+```code
+VITE_REACT_APP_API_ENDPOINT=http://127.0.0.1:4000/api/v1
+VITE_REACT_APP_SOCKET_ENDPOINT=http://127.0.0.1:4000
+```
+
+## Run With Docker
 
 ### 1. Run Docker containers
 
@@ -59,7 +66,7 @@ REDIS_DB=0
 docker compose up
 ```
 
-## Without Docker
+## Run Without Docker
 
 ### 1. Change contents of `DATABASE` and `REDIS` sections in `env` files
 
