@@ -1,0 +1,10 @@
+ARG  NODE_VERSION=18.20.4
+FROM node:${NODE_VERSION}
+
+WORKDIR /rtm/frontend
+COPY ["package.json", "package-lock.json*", "./"]
+RUN npm install --force
+COPY . .
+ 
+CMD [ "npm","run", "dev" ]
+EXPOSE 3000

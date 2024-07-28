@@ -1,0 +1,84 @@
+version: "3.9"
+
+services:
+  frontend:
+    container_name: frontend
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend
+    volumes:
+      - ./frontend:/rtn/frontend
+      - /rtn/frontend/node_modules/
+    depends_on:
+      - backend
+    ports:
+      - 3000:3000
+    links:
+      - backend
+    networks:
+      - main-network
+    restart: unless-stopped
+
+  backend:
+    container_name: backend
+    build:
+      dockerfile: Dockerfile
+      context: ./backend
+    env_file: ./backend/.env
+    volumes:
+      - ./backend:/rtn/backend
+      - /rtn/backend/node_modules/
+      - /rtn/backend/database/
+    command: npm run start:debug
+    depends_on:
+      - postgres-main
+      - redis-main
+    ports:
+      - 4000:4000
+    networks:
+      - main-network
+    restart: unless-stopped
+
+  postgres-main:
+    container_name: postgres-rtn
+    image: postgres:alpine3.20
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: rtn_movie
+      PGPORT: 5433
+    volumes:
+      - postgres-volume:/data/postgres
+    ports:
+      - 5433:5432
+    expose:
+      - 5433
+    networks:
+      - postgres-network
+      - main-network
+    restart: unless-stopped
+
+  redis-main:
+    container_name: redis-nest
+    image: redis:latest
+    ports:
+      - 6379:6379
+    volumes:
+      - redis-volume:/data/redis
+    networks:
+      - redis-network
+      - main-network
+    command: ["redis-server", "--appendonly", "yes"]
+    restart: unless-stopped
+
+networks:
+  postgres-network:
+    driver: bridge
+  main-network:
+    driver: bridge
+  redis-network:
+    driver: bridge
+
+volumes:
+  postgres-volume:
+  redis-volume:
