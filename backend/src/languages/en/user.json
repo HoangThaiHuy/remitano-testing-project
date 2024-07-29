@@ -1,0 +1,9 @@
+{
+  "error": {
+    "NOT_FOUND": "Not found user",
+    "LOGIN_FAIL":"User with such email and password could not be found.",
+    "OTP_INVALID":"OTP Invalid",
+    "OTP_EXPIRED":"OTP Expire",
+    "EMAIL_EXISTS":"Email is existed"
+  }
+}

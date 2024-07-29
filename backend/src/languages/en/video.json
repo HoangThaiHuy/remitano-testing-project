@@ -1,0 +1,7 @@
+{
+  "error": {
+    "VIDEO_EXISTS":"Video is existed",
+    "NOT_FOUND_URL": "Not found  url",
+    "NOT_FOUND": "Not found video"
+  }
+}
