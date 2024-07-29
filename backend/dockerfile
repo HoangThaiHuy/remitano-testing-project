@@ -1,0 +1,11 @@
+ARG  NODE_VERSION=18.20.4
+FROM node:${NODE_VERSION}
+WORKDIR /rtn/backend
+COPY ["package.json", "package-lock.json*",".env.example", "./"]
+
+RUN mv .env.example .env
+RUN npm install -g @nestjs/cli
+RUN npm install --force
+COPY . .
+
+EXPOSE 4000
